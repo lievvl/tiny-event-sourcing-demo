@@ -32,13 +32,13 @@ class ProjectAggregateState : AggregateState<UUID, ProjectAggregate> {
 
     @StateTransitionFunc
     fun taskCreatedApply(event: TaskCreatedEvent) {
-        tasks[event.taskId] = TaskEntity(event.taskId, event.taskName, event.statusId, mutableSetOf())
+        tasks[event.taskId] = TaskEntity(event.taskId, event.taskName, event.statusId, mutableMapOf())
         updatedAt = createdAt
     }
 
     @StateTransitionFunc
     fun userAssignedApply(event: UserAssignedEvent) {
-        members[event.memberExecutorId] = ProjectMemberEntity(event.memberExecutorId, event.memberId)
+        tasks[event.taskId]!!.executors[event.memberExecutorId] = ExecutorEntity(event.memberExecutorId, event.memberId)
         updatedAt = createdAt
     }
 
@@ -77,7 +77,7 @@ data class TaskEntity(
     val id: UUID = UUID.randomUUID(),
     var name: String,
     var status: UUID,
-    val executors: MutableSet<UUID>,
+    val executors: MutableMap<UUID, ExecutorEntity>,
 )
 
 data class StatusEntity(

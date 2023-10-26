@@ -44,6 +44,7 @@ class UserAssignedEvent(
     val projectId: UUID,
     val memberId: UUID,
     val memberExecutorId:UUID,
+    val taskId: UUID,
     createdAt: Long = System.currentTimeMillis(),
 ) : Event<ProjectAggregate>(
     name = USER_ASSIGNED_EVENT,

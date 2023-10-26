@@ -30,15 +30,20 @@ fun ProjectAggregateState.createTask(taskId: UUID, taskName: String, statusId: U
     )
 }
 
-fun ProjectAggregateState.assignUser(memberExecutorId: UUID, memberId: UUID) : UserAssignedEvent {
+fun ProjectAggregateState.assignUser(memberExecutorId: UUID, taskId:UUID, memberId: UUID) : UserAssignedEvent {
     if (!members.containsKey(memberId)) {
         throw IllegalArgumentException("Member doesn't exists: $memberId")
+    }
+
+    if (!tasks.containsKey(taskId)) {
+        throw IllegalArgumentException("Task doesn't exists: $taskId")
     }
 
     return UserAssignedEvent(
         projectId = getId(),
         memberId = memberId,
         memberExecutorId = memberExecutorId,
+        taskId = taskId
     )
 }
 

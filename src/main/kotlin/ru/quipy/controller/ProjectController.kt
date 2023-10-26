@@ -27,9 +27,9 @@ class ProjectController(
         return projectEsService.update(projectId) { it.createTask(UUID.randomUUID(), taskName, statusId) }
     }
 
-    @PostMapping("/{projectId}/tasks/assign/{userId}")
-    fun assignUserOnTask(@PathVariable projectId: UUID, @PathVariable userId: UUID) : UserAssignedEvent {
-        return projectEsService.update(projectId) { it.assignUser(UUID.randomUUID(), userId) }
+    @PostMapping("/{projectId}/tasks/{taskId}/assign/{userId}")
+    fun assignUserOnTask(@PathVariable projectId: UUID, @PathVariable taskId: UUID, @PathVariable userId: UUID) : UserAssignedEvent {
+        return projectEsService.update(projectId) { it.assignUser(UUID.randomUUID(), taskId, userId) }
     }
 
     @PostMapping("/{projectId}/tasks/{taskId}/set-status/{statusId}")
