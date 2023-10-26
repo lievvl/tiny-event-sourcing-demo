@@ -33,43 +33,43 @@ class ProjectAggregateState : AggregateState<UUID, ProjectAggregate> {
     @StateTransitionFunc
     fun taskCreatedApply(event: TaskCreatedEvent) {
         tasks[event.taskId] = TaskEntity(event.taskId, event.taskName, event.statusId, mutableMapOf())
-        updatedAt = createdAt
+        updatedAt = event.createdAt
     }
 
     @StateTransitionFunc
     fun userAssignedApply(event: UserAssignedEvent) {
         tasks[event.taskId]!!.executors[event.memberExecutorId] = ExecutorEntity(event.memberExecutorId, event.memberId)
-        updatedAt = createdAt
+        updatedAt = event.createdAt
     }
 
     @StateTransitionFunc
     fun taskStatusChangedApply(event: TaskStatusChangedEvent) {
         tasks[event.taskId]!!.status = event.statusId
-        updatedAt = createdAt
+        updatedAt = event.createdAt
     }
 
     @StateTransitionFunc
     fun taskStatusCreatedApply(event: TaskStatusCreatedEvent) {
         statuses[event.statusId] = StatusEntity(event.statusId, event.statusText, event.statusColor)
-        updatedAt = createdAt
+        updatedAt = event.createdAt
     }
 
     @StateTransitionFunc
     fun userAddedToProjectApply(event: UserAddedToProjectEvent) {
         members[event.userMemberId] = ProjectMemberEntity(event.userMemberId, event.userId)
-        updatedAt = createdAt
+        updatedAt = event.createdAt
     }
 
     @StateTransitionFunc
     fun taskTittleChangedApply(event: TaskTittleChangedEvent) {
         tasks[event.taskId]!!.name = event.newTittle
-        updatedAt = createdAt
+        updatedAt = event.createdAt
     }
 
     @StateTransitionFunc
     fun taskStatusDeletedApply(event: TaskStatusDeletedEvent) {
         tasks.remove(event.statusId)
-        updatedAt = createdAt
+        updatedAt = event.createdAt
     }
 }
 
