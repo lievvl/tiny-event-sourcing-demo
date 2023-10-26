@@ -8,6 +8,6 @@ fun UserAggregateState.createUser(id: UUID, username: String, realname: String, 
         userId = id,
         username = username,
         realname = realname,
-        password = password,
+        password = password
     )
 }
