@@ -68,7 +68,7 @@ class ProjectAggregateState : AggregateState<UUID, ProjectAggregate> {
 
     @StateTransitionFunc
     fun taskStatusDeletedApply(event: TaskStatusDeletedEvent) {
-        tasks.remove(event.statusId)
+        statuses.remove(event.statusId)
         updatedAt = event.createdAt
     }
 }
