@@ -18,7 +18,6 @@ import java.util.*
 import java.util.concurrent.CountDownLatch
 
 @SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DemoApplicationTests {
 
 	@Autowired

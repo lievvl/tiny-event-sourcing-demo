@@ -73,6 +73,10 @@ fun ProjectAggregateState.createStatus(statusId: UUID, statusText: String, statu
 }
 
 fun ProjectAggregateState.addUser(userId: UUID, userMemberId: UUID) : UserAddedToProjectEvent {
+    if (members.values.any { it.userId.toString().equals(userId.toString()) }) {
+        throw IllegalArgumentException("Member already added: $userId")
+    }
+
     return UserAddedToProjectEvent(
         projectId = getId(),
         userId = userId,
