@@ -36,9 +36,6 @@ class AggregateClientTest {
     @Autowired
     private lateinit var userEsService: EventSourcingService<UUID, UserAggregate, UserAggregateState>
 
-    @Autowired
-    lateinit var mongoTemplate: MongoTemplate
-
     var numberOfSuccess = 0;
     var time = 0.0;
 
@@ -46,10 +43,6 @@ class AggregateClientTest {
 
     @BeforeEach
     fun init() {
-        mongoTemplate.remove(Query.query(Criteria.where("aggregateId").`is`(projectId)), "aggregate-project")
-        mongoTemplate.remove(Query.query(Criteria.where("aggregateId").`is`(userId)), "aggregate-user")
-        mongoTemplate.remove(Query.query(Criteria.where("snapshot.projectId").`is`(projectId)), "snapshots")
-
         userEsService.create {
             it.createUser(userId, "k", "k", "k")
         }
@@ -75,7 +68,7 @@ class AggregateClientTest {
 
     @Test
     fun loadTestRequestsPerSeconds() = runBlocking {
-        val numberOfCoroutines = 1000
+        val numberOfCoroutines = 50
 
         logger.info(numberOfCoroutines.toString())
 

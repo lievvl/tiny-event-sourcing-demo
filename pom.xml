@@ -60,6 +60,18 @@
 
 		<dependency>
 			<groupId>org.loadtest4j.drivers</groupId>
+			<artifactId>loadtest4j-gatling</artifactId>
+			<version>0.10.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.loadtest4j.drivers</groupId>
+			<artifactId>loadtest4j-wrk</artifactId>
+			<scope>test</scope>
+			<version>0.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.loadtest4j.drivers</groupId>
 			<artifactId>loadtest4j-jmeter</artifactId>
 			<scope>test</scope>
 			<version>0.5.0</version>
