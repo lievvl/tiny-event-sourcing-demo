@@ -87,6 +87,8 @@ class AggregateClientTest {
         logger.info("Results:")
         logger.info("Success rate: $numberOfSuccess of $numberOfCoroutines")
         logger.info("Average time: " + (time / numberOfCoroutines).toString() + " ms")
+
+        logger.info(projectEsService.getState(projectId)!!.tasks[taskId]!!.name)
     }
 
     companion object {

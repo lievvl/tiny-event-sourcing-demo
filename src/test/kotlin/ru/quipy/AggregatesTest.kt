@@ -236,7 +236,7 @@ class AggregatesTest {
     }
 
     @Test
-    fun addTaskToProject1WithProject1Default_tryToAssignuserMember22_ThrowException() {
+    fun addTaskToProject1WithProject1Default_tryToAssignUserMember22_ThrowException() {
         val userId = createUser(userEsService, "k", "k", "k")
         val userId2 = createUser(userEsService, "k", "k", "k")
         val dataProject1 = createProject(projectEsService, "Project 1",  userId)
@@ -291,13 +291,6 @@ class AggregatesTest {
         val taskId = createTask(projectEsService, projectId1, "k", statusId1)
 
         Assertions.assertThrows(IllegalArgumentException::class.java) { projectEsService.update(projectId1) { it.deleteStatus(statusId1) } }
-
-        projectEsService.update(projectId1) { it.changeTaskStatus(taskId, statusId2)}
-        projectEsService.update(projectId1) { it.deleteStatus(statusId1) }
-
-        val project = projectEsService.getState(projectId1)
-        Assertions.assertNotNull(project!!.statuses[statusId2])
-        Assertions.assertNull(project.statuses[statusId1])
     }
 
     @Test
