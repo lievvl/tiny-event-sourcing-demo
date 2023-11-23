@@ -97,6 +97,7 @@ class ProjectProjection(
         logger.info("Status created {} ", event.statusText)
     }
 
+
     @SubscribeEvent
     fun taskTittleChangedSubscriber(event: TaskTittleChangedEvent) {
         val task = taskRepository.findByIdOrNull(event.taskId)
