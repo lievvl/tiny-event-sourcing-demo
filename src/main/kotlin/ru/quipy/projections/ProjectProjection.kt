@@ -150,7 +150,7 @@ data class ProjectProjectionTask(
 @Repository
 interface ProjectProjectionTaskRepository : MongoRepository<ProjectProjectionTask, UUID>
 
-@Document("project-projection-task")
+@Document("project-projection-status")
 data class ProjectProjectionStatus(
     @Id
     var statusId: UUID,
