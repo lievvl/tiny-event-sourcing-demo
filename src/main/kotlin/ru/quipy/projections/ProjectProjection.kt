@@ -57,6 +57,10 @@ class ProjectProjection(
         val task = ProjectProjectionTask(event.taskId, event.taskName, event.statusId, mutableSetOf())
         taskRepository.save(task)
 
+        val project = projectRepository.findByIdOrNull(event.projectId)
+        project!!.taskIds.add(event.taskId)
+        projectRepository.save(project)
+
         logger.info("Task created {}", event.taskId)
     }
 
@@ -85,6 +89,11 @@ class ProjectProjection(
         val status = ProjectProjectionStatus(event.statusId, event.statusText, event.statusColor)
         statusRepository.save(status)
 
+        val project = projectRepository.findByIdOrNull(event.projectId)
+        project!!.taskStatusIds.add(event.statusId)
+        projectRepository.save(project)
+
+
         logger.info("Status created {} ", event.statusText)
     }
 
@@ -100,6 +109,11 @@ class ProjectProjection(
     @SubscribeEvent
     fun taskStatusDeletedSubscriber(event: TaskStatusDeletedEvent) {
         statusRepository.deleteById(event.statusId)
+
+        val project = projectRepository.findByIdOrNull(event.projectId)
+        project!!.taskIds.remove(event.statusId)
+        projectRepository.save(project)
+
         logger.info("Status {} deleted", event.statusId)
     }
 }
